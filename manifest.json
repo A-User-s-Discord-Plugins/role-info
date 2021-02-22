@@ -1,0 +1,8 @@
+{
+  "name": "Role Information",
+  "version": "1.0.A",
+  "description": "Right click on a role to see a resumed information of the role permissions",
+  "author": "A user",
+  "icon": "assets/Icon.png",
+  "license": "MIT"
+}
