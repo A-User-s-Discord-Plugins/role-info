@@ -11,7 +11,7 @@ import { Classes, checkIfItHasPermission } from "../../index"
 import { Flex, TabBar, Clickable, Tooltip, Icon } from "@vizality/components"
 import OverallLook from "../sections/OverallLook"
 import Permissions from "../sections/Permissions"
-import MaterialFonts from "../custom/FontAwesome"
+import MaterialIcons from "../custom/MaterialIcons"
 
 let Role = memo(({ children, color }) => {
     return <>
@@ -32,18 +32,16 @@ export default class RoleModal extends React.PureComponent {
     }
 
     render() {
-        const { roleID } = this.props
-        let role = getRoleInfo(roleID)
-        console.log(role)
-        console.log(Classes)
-
-        let features = listAllFeatures(role)
+        const { roleID, guild = getGuild(getGuildId()) } = this.props
+        const role = getRoleInfo(roleID, guild)
+        const features = listAllFeatures(role)
+        const color = role.colorString ? role.colorString : "#ffffffcc"
 
         return <>
             <Flex className={Classes.root} direction={Flex.Direction.VERTICAL}>
                 <div className={Classes.topSectionNormal}>
                     <header className={Classes.header}>
-                        <Role color={role.colorString}></Role>
+                        <Role color={color}></Role>
                         <div className={Classes.headerInfo}>
                             <div className={Classes.nameTag}>
                                 <span className={Classes.username}>{role.name}</span>
@@ -95,12 +93,8 @@ export default class RoleModal extends React.PureComponent {
     }
 }
 
-const getRoleInfo = function(roleid) {
-    let roles = Object.entries(getGuild(getGuildId()).roles)
-    let selectedRole = roles.find(role => {
-        return role[1].id === roleid
-    })
-    return selectedRole[1]
+const getRoleInfo = function(roleid, guild) {
+    return Object.values(guild.roles).find(role => role.id === roleid)
 }
 
 const renderTab = function(role, tabname){
@@ -115,24 +109,24 @@ const renderTab = function(role, tabname){
 const getIconFromFeatures = function(features){
     return <Flex className={Classes.profileBadges + " roleinfo-badges"}>
         {Object.entries(features).map(key => {
-            return (
+            return <>
                 <Tooltip
                     className={Classes.profileBadgeWrapper}
                     position='top'
-                    text={"hi"}
+                    text={(key[0][0].toUpperCase() + key[0].slice(1)).replace(/([a-z])([A-Z])/g, '$1 $2').trim()}
                 >
                     <Clickable role='button' tag='div'>
                         {key[0] === "boost" && key[1] && <Icon name='PremiumGuildTier3'/>}
-                        {key[0] === "administrator" && key[1] && <MaterialFonts name="account_circle"/>}
-                        {key[0] === "ban" && key[1] && <MaterialFonts name="hardware"/>}
-                        {key[0] === "kick" && key[1] && <MaterialFonts name="remove_circle_outline"/>}
-                        {key[0] === "mentionEveryone" && key[1] && <MaterialFonts name="alternate_email"/>}
-                        {key[0] === "manageMessages" && key[1] && <MaterialFonts name="chat_bubble"/>}
-                        {key[0] === "manageGuild" && key[1] && <MaterialFonts name="dns"/>}
-                        {key[0] === "manageChannels" && key[1] && <MaterialFonts name="tag"/>}
+                        {key[0] === "administrator" && key[1] && <MaterialIcons name="account_circle"/>}
+                        {key[0] === "ban" && key[1] && <MaterialIcons name="hardware"/>}
+                        {key[0] === "kick" && key[1] && <MaterialIcons name="remove_circle_outline"/>}
+                        {key[0] === "mentionEveryone" && key[1] && <MaterialIcons name="alternate_email"/>}
+                        {key[0] === "manageMessages" && key[1] && <MaterialIcons name="chat_bubble"/>}
+                        {key[0] === "manageGuild" && key[1] && <MaterialIcons name="dns"/>}
+                        {key[0] === "manageChannels" && key[1] && <MaterialIcons name="tag"/>}
                     </Clickable>
                 </Tooltip>
-            );
+            </>;
         })}
     </Flex>
 }

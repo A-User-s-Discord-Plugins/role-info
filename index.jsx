@@ -2,11 +2,13 @@ import React from "react"
 import { Plugin } from '@vizality/entities';
 import { patch, unpatch } from "@vizality/patcher"
 import { getModule, getModuleByDisplayName } from '@vizality/webpack';
+import { findInReactTree } from '@vizality/util/React';
 const { open: openModal } = require('@vizality/modal')
 const { Permissions } = getModule('Permissions', 'ActivityTypes', 'StatusTypes');
+const { getGuildId } = getModule('getGuildId');
+const { getGuild } = getModule('getGuild', 'getGuilds')
 
 import { ContextMenu } from '@vizality/components'
-const DeveloperContextMenu = getModule(m => m.default?.displayName === 'DeveloperContextMenu')
 
 import RoleModal from "./components/modals/RoleModal"
 
@@ -15,14 +17,12 @@ export default class RoleInfo extends Plugin {
         console.log(Permissions)
         this.injectStyles("style.scss")
         this.patchRoleContextMenu()
-    }
-
-    stop () {
-        unpatch('roleinfo-devcontextmenu')
+        this.patchGuildHeaderPopout()
+        this.patchGuildContextMenu()
     }
 
     patchRoleContextMenu(){
-        patch('roleinfo-devcontextmenu', DeveloperContextMenu, 'default', function(args, res) {
+        patch('roleinfo-devcontextmenu', getModule(m => m.default?.displayName === 'DeveloperContextMenu'), 'default', function(args, res) {
             let id = args[0].id
 
             res.props.children.push(<ContextMenu.Item 
@@ -31,6 +31,38 @@ export default class RoleInfo extends Plugin {
                 action={() => openModal(() => <RoleModal roleID={id} />)}
             />)
         
+            return res;
+        });
+    }
+
+    patchGuildHeaderPopout(){
+        patch('roleinfo-guildheaderpopout', getModule('MenuItem'), 'default', function(args, res) {
+            if (res.props.id !== 'guild-header-popout' || findInReactTree(res, c => c.props && c.props.id == "roleinfo-open-everyone")) return res;
+
+            args[0].children.splice(args[0].children.length - 1, 0,
+                <ContextMenu.Item
+                    id="roleinfo-open-everyone"
+                    label="View @everyone Permissions"
+                    action={() => openModal(() => <RoleModal roleID={Object.values(getGuild(getGuildId()).roles).find(role => role.name === "@everyone").id} />)}
+                />
+            )
+                
+            return res;
+        });
+    }
+
+    patchGuildContextMenu() {
+        patch('roleinfo-guildcontextmenu', getModule(m => m.default && m.default.displayName === 'GuildContextMenu'), 'default', function (args, res) {
+            const whereToAdd = res.props.children.find(e => e.props?.children?.key === "devmode-copy-id") ? res.props.children.length - 2 : res.props.children.length - 1
+
+            res.props.children.splice(whereToAdd, 0,
+                <ContextMenu.Item
+                    id="roleinfo-open-everyone"
+                    label="View @everyone Permissions"
+                    action={() => openModal(() => <RoleModal guild={args[0].guild} roleID={Object.values(args[0].guild.roles).find(role => role.name === "@everyone").id} />)}
+                />
+            )
+
             return res;
         });
     }

@@ -9,7 +9,7 @@ export default memo(({ role }) => {
     return <>
         <Flex justify={Flex.Justify.START} wrap={Flex.Wrap.WRAP}>
             <Section title="Mentionable">{role.mentionable ? "Yes" : "No"}</Section>
-            <Section title="Color"><div className="roleifno-overall-color"><span className="roleifno-overall-color-block" style={{ background: role.colorString }} />{role.colorString}</div></Section>
+            { role.colorString && <Section title="Color"><div className="roleifno-overall-color"><span className="roleifno-overall-color-block" style={{ background: role.colorString }} />{role.colorString}</div></Section>}
             <Section title="Server Boost Role">{role.managed ? "Yes" : "No"}</Section>
         </Flex>
     </>
