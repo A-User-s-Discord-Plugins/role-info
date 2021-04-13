@@ -56,23 +56,10 @@ export default class RoleInfo extends Plugin {
     }
 
     patchGuildHeaderPopout() {
-        unpatchGuildHeaderPopout = patch(
-            "roleinfo-guildheaderpopout",
-            getModule("MenuItem"),
-            "default",
-            function (args, res) {
-                if (
-                    res.props.id !== "guild-header-popout" ||
-                    findInReactTree(
-                        res,
-                        (c) => c.props && c.props.id == "roleinfo-open-everyone"
-                    )
-                )
-                    return res;
+        unpatchGuildHeaderPopout = patch("roleinfo-guildheaderpopout", getModule("MenuItem"), "default", function (args, res) {
+                if (res.props.id !== "guild-header-popout" || findInReactTree(res, (c) => c.props?.id == "roleinfo-open-everyone")) return res;
 
-                args[0].children.splice(
-                    args[0].children.length - 1,
-                    0,
+                args[0].children.splice(args[0].children.length - 1, 0,
                     <ContextMenu.Item
                         id="roleinfo-open-everyone"
                         label="View @everyone Permissions"
@@ -96,22 +83,10 @@ export default class RoleInfo extends Plugin {
     }
 
     patchGuildContextMenu() {
-        unpatchGuildContextMenu = patch(
-            "roleinfo-guildcontextmenu",
-            getModule(
-                (m) => m.default && m.default.displayName === "GuildContextMenu"
-            ),
-            "default",
-            function (args, res) {
-                const whereToAdd = res.props.children.find(
-                    (e) => e.props?.children?.key === "devmode-copy-id"
-                )
-                    ? res.props.children.length - 2
-                    : res.props.children.length - 1;
+        unpatchGuildContextMenu = patch("roleinfo-guildcontextmenu", getModule((m) => m.default?.displayName === "GuildContextMenu"), "default", function (args, res) {
+                const whereToAdd = res.props.children.find((e) => e.props?.children?.key === "devmode-copy-id") ? res.props.children.length - 2 : res.props.children.length - 1;
 
-                res.props.children.splice(
-                    whereToAdd,
-                    0,
+                res.props.children.splice(whereToAdd, 0,
                     <ContextMenu.Item
                         id="roleinfo-open-everyone"
                         label="View @everyone Permissions"

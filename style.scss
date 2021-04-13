@@ -51,8 +51,9 @@
 }
 
 .roleinfo-badges {
-    span,
-    svg {
+	margin-top: 0;
+
+    span, svg {
         color: var(--interactive-normal);
         margin-right: 5px;
     }
