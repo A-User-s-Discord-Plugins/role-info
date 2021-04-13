@@ -53,7 +53,7 @@ export default class RoleInfo extends Plugin {
 				res.props.children.push(
 					<ContextMenu.Item
 						id="roleinfo-open"
-						label="Role informations"
+						label="Role Information"
 						action={() => openModal(() => <RoleModal roleID={id} />)}
 					/>
 				);
