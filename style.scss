@@ -1,90 +1,87 @@
 /* fallback */
 @font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/materialicons/v77/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+	font-family: "Material Icons";
+	font-style: normal;
+	font-weight: 400;
+	src: url(https://fonts.gstatic.com/s/materialicons/v77/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2)
+		format("woff2");
 }
 
 .material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-smoothing: antialiased;
+	font-family: "Material Icons";
+	font-weight: normal;
+	font-style: normal;
+	font-size: 24px;
+	line-height: 1;
+	letter-spacing: normal;
+	text-transform: none;
+	display: inline-block;
+	white-space: nowrap;
+	word-wrap: normal;
+	direction: ltr;
+	-webkit-font-smoothing: antialiased;
 }
 
-.roleinfo-rolecolor{
-    color: rgba($color: #fff, $alpha: 0.8)
+.roleinfo-rolecolor {
+	color: rgba($color: #fff, $alpha: 0.8);
 }
 
-.roleinfo-role{
-    font-size: 0px;
-    border: 3px solid;
-    border-radius: 44px;
-    height: 40px;
-    width: 40px;
-    margin-right: 20px;
+.roleinfo-role {
+	font-size: 0px;
+	border: 3px solid;
+	border-radius: 44px;
+	height: 40px;
+	width: 40px;
+	margin-right: 20px;
 
-    .roleCircle-3xAZ1j{
-        height: 24px;
-        width: 24px;
-        margin-left: 1px;
-        margin-right: -4px;
-    }
+	.roleCircle-3xAZ1j {
+		height: 24px;
+		width: 24px;
+		margin-left: 1px;
+		margin-right: -4px;
+	}
 }
 
-.roleinfo-sections{
-    padding: 5px 10px 5px 0;
+.roleinfo-sections {
+	padding: 5px 10px 5px 0;
 
-    &+.roleinfo-sections{
-        border-top: none;
-    }
+	& + .roleinfo-sections {
+		border-top: none;
+	}
 }
 
-.roleinfo-badges{
-    span, svg{
-        color: var(--interactive-normal);
-        margin-right: 5px;
-    }
+.roleinfo-badges {
+	span,
+	svg {
+		color: var(--interactive-normal);
+		margin-right: 5px;
+	}
 }
 
-.roleinfo-body{
-    padding: 20px 0px;
+.roleinfo-body {
+	padding: 20px 0px;
 }
 
-.roleinfo-permission-grid{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+.roleinfo-permission-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	margin-bottom: 13px;
 
-    .roleinfo-permission-row{
-        padding: 5px 10px
-    }
-
-    .roleinfo-search-bar{
-        position: sticky;
-        top:0;
-        margin-bottom: 8px;
-    }
+	.roleinfo-permission-row {
+		padding: 5px 10px;
+	}
 }
 
-.roleifno-overall-color{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+.roleifno-overall-color {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
 
-    .roleifno-overall-color-block{
-        width: 14px;
-        height: 14px;
-        display: block;
-        border: 2px solid #fff;
-        margin-right: 4px;
-    }
+	.roleifno-overall-color-block {
+		width: 14px;
+		height: 14px;
+		display: block;
+		border: 2px solid #fff;
+		margin-right: 4px;
+	}
 }
