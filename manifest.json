@@ -1,10 +1,10 @@
 {
-	"name": "Role Information",
-	"description": "Right click on a role to see a resumed information of the role permissions",
-	"version": "1.1.A",
-	"license": "MIT",
-	"author": {
-		"name": "A user",
-		"id": "264062457448759296"
-	}
+    "name": "Role Information",
+    "description": "Right click on a role to see a resumed information of the role permissions",
+    "version": "1.1.A",
+    "license": "MIT",
+    "author": {
+        "name": "A user",
+        "id": "264062457448759296"
+    }
 }
